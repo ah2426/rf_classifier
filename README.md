@@ -1,10 +1,9 @@
 # random forest (rf) for classification task
 
 > [!NOTE]
-
-1. data table should be put under `./data`, e.g. `./data/demo.csv`
-2. data table should have samples as row, features as column
-3. data table should contain columns named `true.id` (class labels to be predicted) 
+> data table should be put under `./data`, e.g. `./data/demo.csv`
+> data table should have samples as row, features as column
+> data table should contain columns named `true.id` (class labels to be predicted) 
    and `sample_id` (a unique id for each row/sample)
 
 ### dependencies
