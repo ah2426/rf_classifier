@@ -20,9 +20,10 @@ Rscript main_rf.R demo_iris.csv
 
 ### elastic-net models
 
-1. this is for when the endpoint is continuous. Because of permutation tests,
-   this pipeline would take **longer** to run
-2. run the main script with data filename (e.g. `demo_mpg.csv`) as input
+1. this is for when the endpoint is continuous -- because of significance is determined through permutation,
+   this pipeline takes **longer** to run
+2. data table should have a column named `endpoint` that is the continuous endpoint to be predicted
+3. run the main script with data filename (e.g. `demo_mpg.csv`) as input
 ```
 Rscript main_enet.R demo_mpg.csv
 ```
