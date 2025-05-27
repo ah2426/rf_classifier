@@ -12,9 +12,18 @@ check `environment.yml`
 ### Run
 
 1. navigate the directory to this folder `/your_path/rf_classifier`
-2. run the main script with data filename (e.g. `demo.csv`) as an input
+2. run the main script with data filename (e.g. `demo.csv`) as input
 ```
 Rscript main_rf.R demo.csv
 ```
-3. the trained model, intermediate files, and some output plots are stored under 
-   `./outs/[data_filename]`
+3. the trained model, intermediate files, and some output plots are stored under `./outs/[data_filename]`
+
+### elastic-net models
+
+1. this is for when the endpoint is continuous. Because of permutation tests,
+   this pipeline would take **longer** to run
+2. run the main script with data filename (e.g. `demo_mpg.csv`) as input
+```
+Rscript main_enet.R demo_mpg.csv
+```
+
