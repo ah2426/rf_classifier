@@ -1,0 +1,9 @@
+r-yardstick=1.3.1
+r-randomforest=4.7_1.1
+r-caret=6.0_94
+r-tidyverse=2.0.0
+r-pheatmap
+conda-forge::r-here
+conda-forge::r-devtools
+conda-forge::r-rcolorbrewer
+conda-forge::r-viridis
