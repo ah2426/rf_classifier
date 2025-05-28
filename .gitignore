@@ -1,0 +1,7 @@
+data/*
+outs/*
+
+!data/demo_iris.csv
+!data/demo_mpg.csv
+!outs/demo_*
+
