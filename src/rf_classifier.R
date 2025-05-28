@@ -20,7 +20,7 @@ rf_classifier = function (expr_df, ntree, metric) {
     ## control training 
     train_ctrl = trainControl(method = 'cv',
                               number = 10,
-                              summaryFunction = f1,
+                              #summaryFunction = f1,
                               search = 'grid')
 
     ## train RF classifier

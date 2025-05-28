@@ -53,8 +53,14 @@ calc_metric = function (TEST.score) {
     precision= yardstick::precision(TEST.score, true.id, predicted.id)$.estimate[1]
     recall   = yardstick::recall(TEST.score, true.id, predicted.id)$.estimate[1]
     f1    = yardstick::f_meas(TEST.score, true.id, predicted.id)$.estimate[1]
-    auroc = yardstick::roc_auc(TEST.score, true.id, var_names)$.estimate
-    auprc = yardstick::pr_auc(TEST.score, true.id,  var_names)$.estimate
+
+    if (length(var_names) == 2) {
+        auroc = yardstick::roc_auc(TEST.score, true.id, var_names[1])$.estimate
+        auprc = yardstick::pr_auc(TEST.score, true.id,  var_names[1])$.estimate
+    } else {
+        auroc = yardstick::roc_auc(TEST.score, true.id, var_names)$.estimate
+        auprc = yardstick::pr_auc(TEST.score, true.id,  var_names)$.estimate
+    }
         
     output = c(accuracy=accuracy, precision=precision, recall=recall,
                 f1_score=f1, auroc=auroc,auprc=auprc)

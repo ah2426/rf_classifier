@@ -36,7 +36,7 @@ source_all(SCRIPT)
 TRAIN_TEST_SPLIT = FALSE
 NUM_TREE = 100          # number of trees to include in RF
 RF_METRIC = 'Accuracy'  # IMPORTANT PARAMETER
-PCT_PARTITION = 0.7    # percentage of train-test partition
+PCT_PARTITION = 0.6    # percentage of train-test partition
 
 # CONSOLE REPORT --------------------
 cat('\n',str_pad('# CONSOLE REPORT: ',60,'right','-'),'\n',sep='')
@@ -52,9 +52,15 @@ cat('\n\n',str_pad(' LOAD & PREPROC DATA ',80,'both','-'),'\n\n',sep='')
 
 # load data
 df = read_csv(DATA_FILE, show_col_types = FALSE) |> 
-    mutate(true.id = as.character(true.id)) |> 
     print()
 df = df |> as.data.frame() |> column_to_rownames("sample_id")
+
+# keep "endpoint" colname consistent
+potential_cols = c("true_id")
+idx = which(colnames(df) %in% potential_cols)
+colnames(df)[idx] = "true.id"
+
+df = df |> mutate(true.id = as.character(true.id))
 
 # train-test partition --------------------
 train_idx = createDataPartition(df$true.id, p=PCT_PARTITION, list=FALSE)
