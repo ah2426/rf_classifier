@@ -56,14 +56,14 @@ df = read_csv(DATA_FILE, show_col_types = FALSE) |>
 df = df |> as.data.frame() |> column_to_rownames("sample_id")
 
 # keep "endpoint" colname consistent
-potential_cols = c("true_id")
+potential_cols = c("endpoint")
 idx = which(colnames(df) %in% potential_cols)
-colnames(df)[idx] = "true.id"
+colnames(df)[idx] = "endpoint"
 
-df = df |> mutate(true.id = as.character(true.id))
+df = df |> mutate(endpoint = as.character(endpoint))
 
 # train-test partition --------------------
-train_idx = createDataPartition(df$true.id, p=PCT_PARTITION, list=FALSE)
+train_idx = createDataPartition(df$endpoint, p=PCT_PARTITION, list=FALSE)
 df_train = df[train_idx, ]
 df_test  = df[-train_idx,]
 
@@ -75,14 +75,14 @@ df_test |> rownames_to_column("sample_id") |> write_csv(file.path(SAVE_DIR, "tes
 # NUM_SAMPLE = 100
 # if (DOWNSAMPLE) {
 #     df_train = df_train %>%
-#         group_by(true.id) %>% 
+#         group_by(endpoint) %>% 
 #         slice_sample(n=NUM_SAMPLE, replace=FALSE)
 # }
 
 # before-training display --------------------
 cat('--> train-test split:', '\n')
-table(df_train$true.id)
-table(df_test$true.id)
+table(df_train$endpoint)
+table(df_test$endpoint)
 
 cat('--> TRAIN dim:\n')
 print(dim(df_train))
@@ -126,7 +126,7 @@ cat('\n\n',str_pad(' test RF classifier ',80,'both','-'),'\n\n',sep='')
 #df_test = df_train
 
 TEST.score = make_prediction(model, df_test)
-TEST.score$true.id = factor(TEST.score$true.id)
+TEST.score$endpoint = factor(TEST.score$endpoint)
 TEST.score$predicted.id = factor(TEST.score$predicted.id)
 
 # save TEST.score

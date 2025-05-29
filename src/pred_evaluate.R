@@ -9,12 +9,12 @@ pred_evaluate = function (TEST.score, per_class=FALSE) {
 
     } else {
         
-        uniq_class = unique(TEST.score$true.id)
+        uniq_class = unique(TEST.score$endpoint)
         metric = c('accuracy', 'precision', 'recall', 'f1_score')
         output = data.frame(matrix(0, ncol=length(metric), nrow=length(uniq_class)))
         names(output) = metric
 
-        truth = TEST.score$true.id
+        truth = TEST.score$endpoint
         estimate = TEST.score$predicted.id
 
         for (i in 1:length(uniq_class)) {
@@ -25,7 +25,7 @@ pred_evaluate = function (TEST.score, per_class=FALSE) {
             )
         }
 
-        output = output %>% mutate(true.id=uniq_class)
+        output = output %>% mutate(endpoint=uniq_class)
 
     }
 
@@ -44,22 +44,22 @@ calc_metric = function (TEST.score) {
     # auroc
     # auprc
 
-    rm_colnames = c("sample_id", "true.id", "predicted.id")
+    rm_colnames = c("sample_id", "endpoint", "predicted.id")
     var_names = setdiff(colnames(TEST.score), rm_colnames)
     #print(var_names)
 
     # compute prediction metrics
-    accuracy = yardstick::metrics(TEST.score, true.id, predicted.id)$.estimate[1]
-    precision= yardstick::precision(TEST.score, true.id, predicted.id)$.estimate[1]
-    recall   = yardstick::recall(TEST.score, true.id, predicted.id)$.estimate[1]
-    f1    = yardstick::f_meas(TEST.score, true.id, predicted.id)$.estimate[1]
+    accuracy = yardstick::metrics(TEST.score, endpoint, predicted.id)$.estimate[1]
+    precision= yardstick::precision(TEST.score, endpoint, predicted.id)$.estimate[1]
+    recall   = yardstick::recall(TEST.score, endpoint, predicted.id)$.estimate[1]
+    f1    = yardstick::f_meas(TEST.score, endpoint, predicted.id)$.estimate[1]
 
     if (length(var_names) == 2) {
-        auroc = yardstick::roc_auc(TEST.score, true.id, var_names[1])$.estimate
-        auprc = yardstick::pr_auc(TEST.score, true.id,  var_names[1])$.estimate
+        auroc = yardstick::roc_auc(TEST.score, endpoint, var_names[1])$.estimate
+        auprc = yardstick::pr_auc(TEST.score, endpoint,  var_names[1])$.estimate
     } else {
-        auroc = yardstick::roc_auc(TEST.score, true.id, var_names)$.estimate
-        auprc = yardstick::pr_auc(TEST.score, true.id,  var_names)$.estimate
+        auroc = yardstick::roc_auc(TEST.score, endpoint, var_names)$.estimate
+        auprc = yardstick::pr_auc(TEST.score, endpoint,  var_names)$.estimate
     }
         
     output = c(accuracy=accuracy, precision=precision, recall=recall,

@@ -24,7 +24,7 @@ rf_classifier = function (expr_df, ntree, metric) {
                               search = 'grid')
 
     ## train RF classifier
-    model = train(true.id ~ .,
+    model = train(endpoint ~ .,
                   data = expr_df,
                   method = 'rf', # use randomForest::randomForest
                   metric = metric, # 'Accuracy' or 'F1'

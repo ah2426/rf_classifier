@@ -10,7 +10,7 @@ plot_confusion = function (TEST.score) {
     library(RColorBrewer)
     library(viridis)
 
-    confusion = conf_mat(TEST.score, truth=true.id, estimate=predicted.id)
+    confusion = conf_mat(TEST.score, truth=endpoint, estimate=predicted.id)
 
     labels = colnames(confusion$table)
     mat = matrix(confusion$table, nrow = length(labels))

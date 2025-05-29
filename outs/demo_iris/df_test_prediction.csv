@@ -1,4 +1,4 @@
-sample_id,true.id,predicted.id,setosa,versicolor,virginica
+sample_id,endpoint,predicted.id,setosa,versicolor,virginica
 1,setosa,setosa,1,0,0
 9,setosa,setosa,1,0,0
 14,setosa,setosa,1,0,0
