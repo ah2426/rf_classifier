@@ -18,11 +18,13 @@ Rscript main_rf.R demo_iris.csv
 ```
 3. the trained model, intermediate files, and some output plots are stored under `./outs/[data_filename]`
 
-### elastic-net models
+### elastic-net models (continuous OR discrete)
 
-1. this is for when the endpoint is continuous -- because of significance is determined through permutation,
-   this pipeline takes **longer** to run
-2. data table should have a column named `endpoint` that is the continuous endpoint to be predicted
+1. for elastic-net prediction of continuous endpoint, set `FAMILY="gaussian"` in
+   `main_enet.R`; for prediction of binary discrete endpoint, set
+   `FAMILY=binomial` instead
+2. data table should have a column named `endpoint` that is the continuous/discrete
+   endpoint to be predicted
 3. run the main script with data filename (e.g. `demo_mpg.csv`) as input
 ```
 Rscript main_enet.R demo_mpg.csv
