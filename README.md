@@ -2,7 +2,7 @@
 
 > [!NOTE]
 > for either regression or classification tasks using random forests or 
-> elastic-net, the `y` to be predicted is named `endpoint`
+> elastic-net, the `y` to be predicted is now named `endpoint`
 
 ### Dependencies
 
@@ -22,7 +22,8 @@ data table should
 ```
 Rscript main_rf.R demo_iris.csv
 ```
-3. model, intermediate files, and some output plots are stored under `outs/[filename]`
+3. the trained model, intermediate files, and some output plots are stored under
+   `outs/[filename]`
 
 #### `main_rf.R` for classfication
 
@@ -33,7 +34,7 @@ Rscript main_rf.R demo_iris.csv
 #### `main_enet.R` for classification
 
 1. configure: `FAMILY="binomial"`
-2. **important** to have `endpoint` to have numerical entries, e.g. `1:"Survived"`,
+2. **important** for `endpoint` to have numerical entries, e.g. `1:"Survived"`,
    `0:"Died"`
 3. run `Rscript main_enet.R [filename].csv`
 
@@ -42,3 +43,4 @@ Rscript main_rf.R demo_iris.csv
 1. configure: `FAMILY="gaussian"`
 2. `endpoint` is continuous, e.g. in `demo_mpg.csv`
 3. run `Rscript main_enet.R [filename].csv`
+
