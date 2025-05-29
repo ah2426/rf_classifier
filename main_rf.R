@@ -36,7 +36,7 @@ source_all(SCRIPT)
 TRAIN_TEST_SPLIT = FALSE
 NUM_TREE = 100          # number of trees to include in RF
 RF_METRIC = 'Accuracy'  # IMPORTANT PARAMETER
-PCT_PARTITION = 0.6    # percentage of train-test partition
+PCT_PARTITION = 0.80    # percentage of train-test partition
 
 # CONSOLE REPORT --------------------
 cat('\n',str_pad('# CONSOLE REPORT: ',60,'right','-'),'\n',sep='')
@@ -107,9 +107,11 @@ print(model)
 cat('\n--> Feature importance:', '\n')
 df_imp = varImp(model)$importance |> 
     rownames_to_column("feature") |>
-    mutate(importance = rowMeans(across(-feature)))
-pdf(file=file.path(SAVE_DIR,"rf_feature_importance.pdf"), width=5, height=6)
-    p = plot_importance(df_imp)
+    mutate(importance = rowMeans(across(-feature))) |>
+    arrange(desc(importance))
+print(varImp(model))
+pdf(file=file.path(SAVE_DIR,"rf_feature_importance.pdf"), width=6.5, height=7)
+    p = plot_importance(df_imp, n_top=15)
     print(p)
 dev.off()
 
@@ -119,6 +121,9 @@ write_csv(df_imp, file.path(SAVE_DIR, "df_importance.csv"))
 
 # test RF classifier ----------------------------------------------------------
 cat('\n\n',str_pad(' test RF classifier ',80,'both','-'),'\n\n',sep='')
+
+# ** basically don't do train-test split
+#df_test = df_train
 
 TEST.score = make_prediction(model, df_test)
 TEST.score$true.id = factor(TEST.score$true.id)

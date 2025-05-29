@@ -28,6 +28,7 @@ rf_classifier = function (expr_df, ntree, metric) {
                   data = expr_df,
                   method = 'rf', # use randomForest::randomForest
                   metric = metric, # 'Accuracy' or 'F1'
+                  tuneLength = 20, # number of mtry to screen
                   trControl = train_ctrl,
                   # options to pass to RF
                   ntree = ntree,

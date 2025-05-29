@@ -1,7 +1,8 @@
 #' main script to run elastic-net regression
 #'
 #' NOTE
-#' this is for when endpoint is continuous
+#' when endpoint is continuous, select "gaussian"
+#' when endpoint is discrete (two-class), select "binomial"
 #'
 #' Name: Ao Huang
 #' Date: 2025-05-27
@@ -39,6 +40,7 @@ source_all(SCRIPT)
 
 # CONFIG --------------------
 # ** configuration before run
+FAMILY = "binomial" # ** or gaussian
 ALPHAS = seq(0,1,by=0.1) # c(0.1,0.5,0.9) 0:ridge, 1:lasso
 N_RUN  = 50 # number of cross-validation runs
 N_PERM = 25 # number of permutation to generate null distribution
@@ -47,6 +49,7 @@ N_PERM = 25 # number of permutation to generate null distribution
 cat('\n',str_pad('# CONSOLE REPORT: ',60,'right','-'),'\n',sep='')
 cat('DATA_FILE:', DATA_FILE, '\n')
 cat('SAVE_DIR:', SAVE_DIR, '\n')
+cat('FAMILY:', FAMILY, '\n')
 cat('ALPHAS:', ALPHAS, '\n')
 
 # ** set working dir to the save_dir
@@ -91,7 +94,7 @@ toc = Sys.time()
 # normal run
 eNet = eNetXplorer(
     x = X, y = y,
-    family = "gaussian",
+    family = FAMILY, # gaussian or binomial
     alpha = ALPHAS,
     n_run = N_RUN, n_perm_null = N_PERM, n_fold = 10,
     seed = 72,
